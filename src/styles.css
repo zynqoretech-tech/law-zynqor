@@ -1,0 +1,145 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-gold-dark: var(--gold-dark);
+  --color-surface: var(--bg-surface);
+  --color-elevated: var(--bg-elevated);
+  --color-overlay: var(--bg-overlay);
+
+  --font-display: 'Amiri', serif;
+  --font-body: 'Cairo', sans-serif;
+  --font-english: 'Cormorant Garamond', serif;
+}
+
+:root {
+  --radius: 0.5rem;
+
+  --background: oklch(0.18 0.04 270);
+  --foreground: oklch(0.93 0.05 85);
+
+  --bg-surface: oklch(0.22 0.04 270);
+  --bg-elevated: oklch(0.26 0.04 268);
+  --bg-overlay: oklch(0.14 0.04 270);
+
+  --gold: oklch(0.74 0.13 85);
+  --gold-light: oklch(0.83 0.13 87);
+  --gold-dark: oklch(0.60 0.12 80);
+
+  --card: var(--bg-surface);
+  --card-foreground: var(--foreground);
+  --popover: var(--bg-elevated);
+  --popover-foreground: var(--foreground);
+  --primary: var(--gold);
+  --primary-foreground: oklch(0.18 0.04 270);
+  --secondary: var(--bg-elevated);
+  --secondary-foreground: var(--foreground);
+  --muted: var(--bg-elevated);
+  --muted-foreground: oklch(0.68 0.04 80);
+  --accent: var(--gold);
+  --accent-foreground: oklch(0.18 0.04 270);
+  --destructive: oklch(0.62 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(0.32 0.04 268);
+  --input: oklch(0.26 0.04 268);
+  --ring: var(--gold);
+}
+
+.dark {
+  --background: oklch(0.18 0.04 270);
+  --foreground: oklch(0.93 0.05 85);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { direction: rtl; }
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    background-image:
+      radial-gradient(ellipse at top, oklch(0.26 0.06 268 / 0.6), transparent 60%),
+      radial-gradient(ellipse at bottom, oklch(0.22 0.05 85 / 0.15), transparent 70%);
+    min-height: 100vh;
+  }
+  h1, h2, h3 { font-family: var(--font-display); }
+}
+
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #A07820 0%, #E8C060 35%, #F5E6C8 50%, #E8C060 65%, #A07820 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .bg-gold-gradient {
+    background: linear-gradient(135deg, #A07820 0%, #C9A030 30%, #E8C060 50%, #C9A030 70%, #A07820 100%);
+  }
+  .border-gold-soft { border-color: oklch(0.74 0.13 85 / 0.3); }
+  .shadow-gold { box-shadow: 0 10px 40px -10px oklch(0.74 0.13 85 / 0.35); }
+
+  .islamic-pattern {
+    background-image:
+      repeating-linear-gradient(45deg, oklch(0.74 0.13 85 / 0.04) 0 1px, transparent 1px 24px),
+      repeating-linear-gradient(-45deg, oklch(0.74 0.13 85 / 0.04) 0 1px, transparent 1px 24px);
+  }
+
+  @keyframes shimmer {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  .animate-shimmer {
+    background-size: 200% 200%;
+    animation: shimmer 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  .animate-float { animation: float 6s ease-in-out infinite; }
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate-fade-up { animation: fade-up 0.8s ease-out both; }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar { display: none; }
+}

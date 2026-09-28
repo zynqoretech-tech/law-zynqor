@@ -1,0 +1,2 @@
+REVOKE EXECUTE ON FUNCTION public.push_notification(uuid,text,text,text,uuid,text) FROM anon, public;
+GRANT EXECUTE ON FUNCTION public.push_notification(uuid,text,text,text,uuid,text) TO authenticated;
