@@ -1,12 +1,27 @@
 export function getBaseUrl(): string {
-  if (typeof window !== "undefined") {
+  let url = "";
+
+  if (typeof import.meta !== "undefined" && import.meta.env && import.meta.env.VITE_API_URL) {
+    url = (import.meta.env.VITE_API_URL as string).trim();
+  } else if (typeof process !== "undefined" && process.env && process.env.VITE_API_URL) {
+    url = (process.env.VITE_API_URL as string).trim();
+  } else if (typeof window !== "undefined") {
     if (window.location.port === "8009") {
-      return `${window.location.origin}/api/v1`;
+      url = `${window.location.origin}/api/v1`;
+    } else if (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") {
+      url = `http://${window.location.hostname}:8009/api/v1`;
+    } else {
+      url = "https://api-law.mr-zynqor.lat/api/v1";
     }
-    const host = window.location.hostname || "127.0.0.1";
-    return `http://${host}:8009/api/v1`;
+  } else {
+    url = "https://api-law.mr-zynqor.lat/api/v1";
   }
-  return "http://127.0.0.1:8009/api/v1";
+
+  url = url.replace(/\/+$/, "");
+  if (!url.endsWith("/api/v1") && !url.endsWith("/api")) {
+    url = `${url}/api/v1`;
+  }
+  return url;
 }
 
 export function getToken(): string | null {

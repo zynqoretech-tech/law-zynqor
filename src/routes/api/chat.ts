@@ -183,7 +183,7 @@ export const Route = createFileRoute("/api/chat")({
           }
 
           const authHeader = request.headers.get("authorization");
-          const laravelUrl = process.env.VITE_API_URL || "http://127.0.0.1:8009/api/v1";
+          const laravelUrl = process.env.VITE_API_URL || "https://api-law.mr-zynqor.lat/api/v1";
 
           const laravelRes = await fetch(`${laravelUrl}/ai/chat`, {
             method: "POST",

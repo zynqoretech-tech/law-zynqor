@@ -9,6 +9,7 @@ import {
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
+import { apiFetch } from "@/lib/laravel";
 
 export const Route = createFileRoute("/dashboard/lawyer/profile")({
   head: () => ({ meta: [{ title: "ملفي العام واشتراكي — الوكيل" }] }),
@@ -536,7 +537,7 @@ function LawyerSubscriptionSection({ profile, userId }: { profile: any; userId: 
       try {
         const [plansRes, methodsRes] = await Promise.all([
           supabase.from("subscription_plans").select("*"),
-          fetch("/api/v1/payment-methods").then((r) => (r.ok ? r.json() : null)).catch(() => null),
+          apiFetch("/payment-methods").catch(() => null),
         ]);
 
         const loadedPlans = Array.isArray(plansRes.data) && plansRes.data.length > 0 ? plansRes.data : DEFAULT_PLANS;
